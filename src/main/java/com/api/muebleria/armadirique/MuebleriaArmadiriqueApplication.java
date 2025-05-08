@@ -19,10 +19,10 @@ public class MuebleriaArmadiriqueApplication {
 	@Bean
 	public CommandLineRunner run(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		return args -> {
-			if (userRepository.findByUsername("admin").isEmpty()) {
+			if (userRepository.findByUsername("admin@gmail.com").isEmpty()) {
 				User admin = User.builder()
 						.username("admin@gmail.com")
-						.password(passwordEncoder.encode("admin123")) // contraseña segura
+						.password(passwordEncoder.encode("admin123"))
 						.firstname("Super")
 						.lastname("Admin")
 						.country("Global")
@@ -31,6 +31,7 @@ public class MuebleriaArmadiriqueApplication {
 				userRepository.save(admin);
 				System.out.println("✅ Usuario administrador creado por defecto: admin@gmail.com / admin123");
 			} else {
+				//correccion error al actualizar usuario admin en base d adtos
 				System.out.println("ℹ️ El usuario administrador ya existe.");
 			}
 		};
