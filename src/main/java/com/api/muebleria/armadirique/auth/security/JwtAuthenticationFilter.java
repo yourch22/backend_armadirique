@@ -2,7 +2,7 @@ package com.api.muebleria.armadirique.auth.security;
 
 
 import java.io.IOException;
-
+/*
 import com.api.muebleria.armadirique.auth.service.JwtService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
+/*
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
@@ -73,7 +73,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 
+*/
 
-
-
-}
+//}

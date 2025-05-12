@@ -1,5 +1,5 @@
 package com.api.muebleria.armadirique.auth.service;
-
+/*
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
-
+/*
     @Value("${app.jwt-secret}")
     private String SECRET_KEY;  // Inyectando la propiedad en lugar de usar una constante estática
 
@@ -72,4 +72,7 @@ public class JwtService {
     private boolean isTokenExpired(String token) {
         return getExpiration(token).before(new Date());
     }
+
+
 }
+*/

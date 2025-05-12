@@ -1,39 +1,57 @@
 package com.api.muebleria.armadirique;
 
-import com.api.muebleria.armadirique.auth.entity.Role;
-import com.api.muebleria.armadirique.auth.entity.User;
-import com.api.muebleria.armadirique.auth.repository.UserRepository;
+import com.api.muebleria.armadirique.auth.entity.Rol;
+import com.api.muebleria.armadirique.auth.entity.Usuario;
+import com.api.muebleria.armadirique.auth.entity.UsuarioRol;
+import com.api.muebleria.armadirique.auth.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 // Archivo principal de la aplicación
 @SpringBootApplication
-public class MuebleriaArmadiriqueApplication {
+public class MuebleriaArmadiriqueApplication  {//implementacion solo para probar ingresar datos
+
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(MuebleriaArmadiriqueApplication.class, args);
 	}
-	//al iniciar la aplicacion creamos un usuario por defecto
-	@Bean
-	public CommandLineRunner run(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-		return args -> {
-			if (userRepository.findByUsername("admin@gmail.com").isEmpty()) {
-				User admin = User.builder()
-						.username("admin@gmail.com")
-						.password(passwordEncoder.encode("admin123"))
-						.firstname("Super")
-						.lastname("Admin")
-						.country("Global")
-						.role(Role.ADMIN)
-						.build();
-				userRepository.save(admin);
-				System.out.println("✅ Usuario administrador creado por defecto: admin@gmail.com / admin123");
-			} else {
-				//correccion error al actualizar usuario admin en base d adtos
-				System.out.println("ℹ️ El usuario administrador ya existe.");
-			}
-		};
-	}
+
+
+		/*try{
+		Usuario usuario = new Usuario();
+
+			usuario.setNombre("Jorge");
+			usuario.setApellido("Flores");
+			usuario.setUsername("jorge");
+			usuario.setPassword("12345");
+			usuario.setEmail("jorge@gmail.com");
+			usuario.setTelefono("988212020");
+			usuario.setPerfil("foto.png");
+			usuario.setDireccion("av.arequipa");
+			usuario.setEstado(true);
+			usuario.setCiudad("Lima");
+
+
+			Rol rol = new Rol();
+			rol.setRolId(2L);
+			rol.setRolNombre("ADMIN");
+
+			Set<UsuarioRol> usuariosRoles = new HashSet<>();
+			UsuarioRol usuarioRol = new UsuarioRol();
+			usuarioRol.setRol(rol);
+			usuarioRol.setUsuario(usuario);
+			usuariosRoles.add(usuarioRol);
+
+			Usuario usuarioGuardado = usuarioService.guardarUsuario(usuario,usuariosRoles);
+			System.out.println(usuarioGuardado.getUsername());
+	/*	}catch (UsuarioFoundException exception){
+			exception.printStackTrace();
+		}*/
+
 }

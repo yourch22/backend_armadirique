@@ -1,5 +1,5 @@
 package com.api.muebleria.armadirique.config;
-
+/*
 import com.api.muebleria.armadirique.auth.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -47,6 +47,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll() // Login y registro públicos
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // 👈 permite Swagger
                         .requestMatchers("/admin/**").hasAuthority("ADMIN") // Solo ADMIN
                         .requestMatchers("/client/**").hasAuthority("CLIENT") // Solo CLIENT
                         .anyRequest().authenticated() // Cualquier otra requiere autenticación
@@ -56,3 +57,4 @@ public class SecurityConfig {
                 .build();
     }
 }
+*/

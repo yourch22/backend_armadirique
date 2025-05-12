@@ -1,5 +1,5 @@
 package com.api.muebleria.armadirique.auth.dto;
-
+/*
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,3 +12,5 @@ import lombok.NoArgsConstructor;
 public class AuthResponse {
     String token;
 }
+
+ */

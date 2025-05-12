@@ -1,11 +1,8 @@
 package com.api.muebleria.armadirique.auth.service;
-
+/*
 import com.api.muebleria.armadirique.auth.dto.AuthResponse;
 import com.api.muebleria.armadirique.auth.dto.LoginRequest;
 import com.api.muebleria.armadirique.auth.dto.RegisterRequest;
-import com.api.muebleria.armadirique.auth.entity.Role;
-import com.api.muebleria.armadirique.auth.entity.User;
-import com.api.muebleria.armadirique.auth.repository.UserRepository;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final UserRepository userRepository;
+ /*   private final UserRepository userRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -58,3 +55,4 @@ public class AuthService {
     }
 
 }
+*/

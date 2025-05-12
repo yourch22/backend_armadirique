@@ -1,5 +1,5 @@
 package com.api.muebleria.armadirique.auth.controller;
-
+/*
 import com.api.muebleria.armadirique.auth.dto.AuthResponse;
 import com.api.muebleria.armadirique.auth.service.AuthService;
 import com.api.muebleria.armadirique.auth.dto.LoginRequest;
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
-
+/*
     private final AuthService authService;
 
     @PostMapping("/login") // 👈 agregué "/"
@@ -24,4 +24,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
     }
+
+
 }
+*/
