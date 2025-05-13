@@ -5,6 +5,7 @@ import com.api.muebleria.armadirique.auth.entity.UsuarioRol;
 import com.api.muebleria.armadirique.auth.repository.RolRepository;
 import com.api.muebleria.armadirique.auth.repository.UsuarioRepository;
 import com.api.muebleria.armadirique.auth.service.UsuarioService;
+import com.api.muebleria.armadirique.excepcions.UsuarioFountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         //obtnemos el usuario para validar si ya existe, para no duplicar usuarios
         if (usuarioLocal != null) {
             System.out.println("Usuario ya Existe");
-            throw new Exception("Usuario ya esta presente");
+            throw new UsuarioFountException("Usuario ya esta presente");
         }
         //si usuario no existe guardamos en base datos
         else {
