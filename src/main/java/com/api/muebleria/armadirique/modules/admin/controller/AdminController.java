@@ -1,5 +1,5 @@
 package com.api.muebleria.armadirique.modules.admin.controller;
-
+/*
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,4 +16,4 @@ public class AdminController {
     {
         return "Iniciaste Sesion como Administrador";
     }
-}
+}*/
