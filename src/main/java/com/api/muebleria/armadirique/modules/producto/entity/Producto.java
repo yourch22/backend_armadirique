@@ -1,5 +1,6 @@
 package com.api.muebleria.armadirique.modules.producto.entity;
 
+import com.api.muebleria.armadirique.auth.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,4 +32,9 @@ public class Producto {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id") // recomendable
     private Categoria categoria;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
 }

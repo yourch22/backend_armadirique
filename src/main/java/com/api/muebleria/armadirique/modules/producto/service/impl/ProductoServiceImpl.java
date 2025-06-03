@@ -1,6 +1,7 @@
 package com.api.muebleria.armadirique.modules.producto.service.impl;
 
 
+import com.api.muebleria.armadirique.auth.repository.UsuarioRepository;
 import com.api.muebleria.armadirique.modules.producto.Repository.CategoriaRepository;
 import com.api.muebleria.armadirique.modules.producto.Repository.ProductoRepository;
 import com.api.muebleria.armadirique.modules.producto.dto.ProductoRequest;
@@ -20,6 +21,7 @@ public class ProductoServiceImpl implements IProductoService {
 
     private final ProductoRepository productoRepository;
     private final CategoriaRepository categoriaRepository;
+    private final UsuarioRepository usuarioRepository;
 
 
     @Override
