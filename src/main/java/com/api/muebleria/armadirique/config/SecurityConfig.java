@@ -49,7 +49,13 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/generate-token", "/api/v1/usuarios").permitAll() /* se agrega correcto rutas con buenas practicas*/
+                        .requestMatchers(
+                                "/auth/*",
+                                "/usuarios/",//recomienda register
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll() /* se agrega correcto rutas con buenas practicas*/
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyRequest().authenticated()
                 );
