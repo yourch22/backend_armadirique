@@ -1,8 +1,8 @@
 package com.api.muebleria.armadirique.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder; // 👈 Faltaba este import
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,19 +11,21 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder // 👈 Añade esta línea
 @Entity
-@Table(name = "users")
-public class User implements UserDetails {
+@Table(name = "usuarios")
+//implementa userdetail para validacion JWT
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false, unique = true, length = 50)
     private String username;
@@ -32,28 +34,41 @@ public class User implements UserDetails {
     private String password;
 
     @Column(nullable = false, length = 50)
-    private String firstname;
+    private String nombre;
 
     @Column(nullable = false, length = 50)
-    private String lastname;
+    private String apellidos;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
-
-    // Campos opcionales — SOLO APLICAN para CLIENTES
     @Column(length = 100)
-    private String address;
-
-    @Column(length = 20)
-    private String phone;
+    private String direccion;
 
     @Column(length = 50)
-    private String country;
+    private String ciudad;
+
+    @Column(length = 20)
+    private String telefono;
+
+    @Column(length = 20)
+    private String email;
+
+    private boolean estado = true;
+
+    private String perfil;
+
+    //relacion de tabla de muchos a muchos
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "usuario")
+    @JsonIgnore
+    private Set<UsuarioRol> usuarioRoles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        //creamos conjunto de autorizaciones
+        Set<Authority> authorities = new HashSet<>();
+        //con el foreach recorremos usuario roles y obtioene nombre de roles
+        this.usuarioRoles.forEach(usuarioRol -> {
+            authorities.add(new Authority(usuarioRol.getRol().getRolNombre()));
+        });
+        return authorities;
     }
 
     @Override
