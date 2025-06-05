@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/productos")
+@RequestMapping("/productos")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*") // Permite probar desde Postman o frontend local
+@CrossOrigin("*")//dependencia para permitir acceso al controlador
 public class ProductoController {
 
     private final IProductoService productoService;

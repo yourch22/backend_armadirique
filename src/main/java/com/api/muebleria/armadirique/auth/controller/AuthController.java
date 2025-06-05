@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
+@RequestMapping("/auth")
 //permite conexion entre backend y frontend
 @CrossOrigin(origins = "*")
 public class AuthController {
@@ -33,7 +34,7 @@ public class AuthController {
     @Autowired
     private JwtUtils jwtUtils;
 
-    @PostMapping("/generate-token")
+    @PostMapping("/login")
     public ResponseEntity<?> generarToken(@RequestBody JwtLoginRequest jwtLoginRequest) throws Exception {
         try{
             autenticar(jwtLoginRequest.getUsername(),jwtLoginRequest.getPassword());

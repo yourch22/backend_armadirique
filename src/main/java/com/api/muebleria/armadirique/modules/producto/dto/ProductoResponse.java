@@ -18,4 +18,6 @@ public class ProductoResponse {
     private boolean estado;
     private Long idCategoria;
     private String nombreCategoria;
+    private Long idUsuario;
+    private String nombreUsuario;
 }
