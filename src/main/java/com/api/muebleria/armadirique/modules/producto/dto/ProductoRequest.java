@@ -20,4 +20,5 @@ public class ProductoRequest {
     private String imagenUrl;
     private boolean estado;
     private Long idCategoria;
+    private Long idUsuario; // Si es necesario
 }

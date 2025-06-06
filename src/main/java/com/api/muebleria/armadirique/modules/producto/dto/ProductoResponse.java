@@ -1,5 +1,7 @@
 package com.api.muebleria.armadirique.modules.producto.dto;
 
+import com.api.muebleria.armadirique.auth.entity.Usuario;
+import com.api.muebleria.armadirique.modules.producto.entity.Categoria;
 import lombok.*;
 
 import java.math.BigDecimal;
