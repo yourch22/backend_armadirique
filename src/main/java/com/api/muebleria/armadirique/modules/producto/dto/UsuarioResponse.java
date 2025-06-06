@@ -1,4 +1,4 @@
-package com.api.muebleria.armadirique.auth.dto;
+package com.api.muebleria.armadirique.modules.producto.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
-    String username;
-    String password;
+public class UsuarioResponse {
+    private Long usuarioId;
+    private String username;
 }

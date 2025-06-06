@@ -1,6 +1,5 @@
 package com.api.muebleria.armadirique.config;
-
-import com.api.muebleria.armadirique.auth.repository.UserRepository;
+/*
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
-
+/*
     private final UserRepository userRepository;
 
     @Bean
@@ -46,4 +45,4 @@ public class ApplicationConfig {
                 .orElseThrow(()-> new UsernameNotFoundException("User not fournd"));
     }
 
-}
+}*/
