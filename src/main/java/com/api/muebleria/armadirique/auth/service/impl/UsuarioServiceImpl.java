@@ -20,6 +20,17 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private RolRepository rolRepository;
 
+    @Override
+    public Usuario obtenerUsuarioPorId(Long id) throws Exception {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new UsuarioFountException("Usuario no encontrado con ID: " + id));
+    }
+
+    @Override
+    public Usuario actualizarUsuario(Usuario usuario) throws Exception {
+        return usuarioRepository.save(usuario);
+    }
+
     //metodo que implemeta al la interface UusarioService
     @Override
     public Usuario guardarUsuario(Usuario usuario, Set<UsuarioRol> usuarioRoles) throws Exception {

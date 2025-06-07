@@ -10,11 +10,12 @@ import com.api.muebleria.armadirique.modules.producto.entity.Categoria;
 import com.api.muebleria.armadirique.modules.producto.entity.Producto;
 import com.api.muebleria.armadirique.modules.producto.service.IProductoService;
 import com.api.muebleria.armadirique.utils.FileUploadUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -69,18 +70,9 @@ public class ProductoServiceImpl implements IProductoService {
 
     }
 
-    /**
-     * Obtiene todos los productos almacenados en la base de datos y los convierte
-     * a una lista de objetos {@link ProductoResponse} para su presentación en la capa cliente.
-     *
-     * @return una lista de respuestas {@link ProductoResponse} que representan todos los productos disponibles.
-     */
     @Override
     public List<ProductoResponse> obtenerTodos() {
-        return productoRepository.findAll()
-                .stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+        return productoRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
     }
     /**
      * Obtener productos por ID
@@ -114,7 +106,6 @@ public class ProductoServiceImpl implements IProductoService {
                     throw new RuntimeException("Failed to update file: " + e.getMessage());
                 }
             } else if (productoRequest.getImagenUrl() == null) {
-                // If photo is explicitly set to null (or not provided) and it previously existed, delete it
                 if (existingProducto.getImagenUrl() != null) {
                     try {
                         FileUploadUtil.deleteFile(baseUploadDir, existingProducto.getImagenUrl());
@@ -154,6 +145,12 @@ public class ProductoServiceImpl implements IProductoService {
         } else {
             throw new RuntimeException("Category not found with id: " + id);
         }
+    }
+
+    // Implementación del metodo de paginación
+    @Override
+    public Page<ProductoResponse> obtenerTodosPaginado(Pageable pageable) {
+        return productoRepository.findAll(pageable).map(this::mapToResponse); // Mapea cada Producto a ProductoResponse
     }
 
     /**

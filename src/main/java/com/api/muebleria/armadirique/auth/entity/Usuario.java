@@ -18,7 +18,6 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "usuarios")
-//implementa userdetail para validacion JWT
 public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
