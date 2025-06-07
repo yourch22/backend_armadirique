@@ -1,18 +1,19 @@
 package com.api.muebleria.armadirique.modules.producto.controller;
-
 import com.api.muebleria.armadirique.modules.producto.dto.CategoriaResponse;
 import com.api.muebleria.armadirique.modules.producto.dto.ProductoRequest;
 import com.api.muebleria.armadirique.modules.producto.dto.ProductoResponse;
 import com.api.muebleria.armadirique.modules.producto.service.ICategoriaService;
 import com.api.muebleria.armadirique.modules.producto.service.IProductoService;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/productos")
@@ -26,6 +27,18 @@ public class ProductoController {
         this.productoService = productoService;
         this.categoriaService = categoriaService;
     }
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // ¡IMPORTANTE! Indica que esperas multipart/form-data para que permita seleccionar imagenes
+    public ResponseEntity<ProductoResponse> createProduct(
+            @ModelAttribute ProductoRequest request, BindingResult result) {
+        if (result.hasErrors()) {
+            // manejar errores de validación
+            return ResponseEntity.badRequest().build();
+        }
+        ProductoResponse response = productoService.createProduct(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
     /**
      * Obtiene todos los productos disponibles.
      *
@@ -48,51 +61,30 @@ public class ProductoController {
     }
 
     /**
-     * Crea un nuevo producto.
-     *
-     * @param request datos del nuevo producto
-     * @return producto creado
-     */
-    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<ProductoResponse> crear(
-            @RequestPart("producto") ProductoRequest request, // "producto" es el nombre de la parte que contiene el JSON
-            @RequestPart(value = "imagenFile", required = false) MultipartFile imagenFile) { // "imagenFile" es el nombre de la parte que contiene el archivo) {
-        try {
-            ProductoResponse productoCreado = productoService.crear(request, imagenFile);
-            return new ResponseEntity<>(productoCreado, HttpStatus.CREATED);
-        } catch (Exception e) {
-            // Considera un manejo de errores más específico y devolver un HttpStatus adecuado
-            // Por ejemplo, si la categoría no existe, podría ser un BAD_REQUEST
-            // Si hay un error al guardar el archivo, podría ser un INTERNAL_SERVER_ERROR
-            // e.printStackTrace(); // Para depuración, pero usa un logger en producción
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Ejemplo genérico
-        }
-    }
-
-    /**
      * Actualiza un producto existente.
      *
      * @param id identificador del producto a actualizar
      * @param request datos actualizados del producto
      * @return producto actualizado
      */
-    @PutMapping(value = "/{id}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<ProductoResponse> actualizar(
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProduct(
             @PathVariable Long id,
-            @RequestPart("producto") ProductoRequest request,
-            @RequestPart(value = "imagenFile", required = false) MultipartFile imagenFile) {
+            @Valid @ModelAttribute ProductoRequest request,
+            BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            result.getFieldErrors().forEach(error ->
+                    errors.put(error.getField(), error.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(errors);
+        }
         try {
-            ProductoResponse productoActualizado = productoService.actualizar(id, request, imagenFile);
-            return ResponseEntity.ok(productoActualizado);
-        } catch (RuntimeException e) { // Por ejemplo, ProductoNotFoundException
-            // e.printStackTrace();
-            if (e.getMessage().contains("Producto no encontrado") || e.getMessage().contains("Categoría no encontrada")) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // O BAD_REQUEST si es error de validación
-            }
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Ejemplo genérico
+            ProductoResponse updatedProduct = productoService.updateProduct(id, request);
+            return ResponseEntity.ok(updatedProduct);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
         }
     }
-
     /**
      * Elimina un producto por su ID.
      *
