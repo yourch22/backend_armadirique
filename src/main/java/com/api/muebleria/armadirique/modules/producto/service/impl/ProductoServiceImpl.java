@@ -78,10 +78,7 @@ public class ProductoServiceImpl implements IProductoService {
      */
     @Override
     public List<ProductoResponse> obtenerTodos() {
-        return productoRepository.findAll()
-                .stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+        return productoRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
     }
     /**
      * Obtener productos por ID
