@@ -70,12 +70,6 @@ public class ProductoServiceImpl implements IProductoService {
 
     }
 
-    /**
-     * Obtiene todos los productos almacenados en la base de datos y los convierte
-     * a una lista de objetos {@link ProductoResponse} para su presentación en la capa cliente.
-     *
-     * @return una lista de respuestas {@link ProductoResponse} que representan todos los productos disponibles.
-     */
     @Override
     public List<ProductoResponse> obtenerTodos() {
         return productoRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
@@ -112,7 +106,6 @@ public class ProductoServiceImpl implements IProductoService {
                     throw new RuntimeException("Failed to update file: " + e.getMessage());
                 }
             } else if (productoRequest.getImagenUrl() == null) {
-                // If photo is explicitly set to null (or not provided) and it previously existed, delete it
                 if (existingProducto.getImagenUrl() != null) {
                     try {
                         FileUploadUtil.deleteFile(baseUploadDir, existingProducto.getImagenUrl());
