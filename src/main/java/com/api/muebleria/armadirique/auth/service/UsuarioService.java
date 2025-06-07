@@ -10,6 +10,8 @@ public interface UsuarioService {
 
     //metodo que se encarga de asignar usuarios la tbkla intermedia usuarioroles
     public Usuario guardarUsuario(Usuario usuario, Set<UsuarioRol> usuarioRoles) throws Exception;
+    Usuario obtenerUsuarioPorId(Long id) throws Exception;
+    Usuario actualizarUsuario(Usuario usuario) throws Exception;
 
     //Agregmos metodo para obtener uuario
     public Usuario obtenerUsuario(String username);
