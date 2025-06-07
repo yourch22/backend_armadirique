@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page; // <--- ADD THIS LINE
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable; // Ensure this is present
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault; // Ensure this is present
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
