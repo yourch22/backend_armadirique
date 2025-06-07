@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Pageable; // Ensure this is present
 
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
-    // Spring Data JPA automáticamente generará la implementación para este método
+    // Spring Data JPA automáticamente generará la implementación para este metodo
     Page<Producto> findAll(Pageable pageable);
 }

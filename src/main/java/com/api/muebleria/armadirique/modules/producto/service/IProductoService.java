@@ -12,6 +12,6 @@ public interface IProductoService {
     ProductoResponse updateProduct(Long id,ProductoRequest productoRequest);//otro netodo para actualizar con img
     void eliminar(Long id);
 
-    // Nuevo método para obtener productos paginados
+    // Nuevo metodo para obtener productos paginados
     Page<ProductoResponse> obtenerTodosPaginado(Pageable pageable);
 }

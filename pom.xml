@@ -100,6 +100,46 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+		<!-- Pruebas Test TDD -->
+		<!-- Mockito: Librería de pruebas para crear objetos simulados (mocks) en pruebas unitarias -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.17.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JUnit Jupiter: Plataforma moderna para ejecutar pruebas con anotaciones como @Test, @BeforeEach, etc. -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.12.2</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Google Guava: Librería de utilidades para colecciones, validaciones, caching, strings, etc. -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>16.0.1</version>
+		</dependency>
+
+		<!-- Apache Commons Lang: Métodos utilitarios para Strings, fechas, validaciones y más -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.17.0</version>
+		</dependency>
+
+		<!-- Apache POI: Manipulación de documentos Office, especialmente útil para generar archivos Excel -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>5.3.0</version> </dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.3.0</version> </dependency>
     </dependencies>
 	<build>
 		<plugins>

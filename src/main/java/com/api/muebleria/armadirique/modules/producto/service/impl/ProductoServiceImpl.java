@@ -157,7 +157,7 @@ public class ProductoServiceImpl implements IProductoService {
         }
     }
 
-    // Implementación del método de paginación
+    // Implementación del metodo de paginación
     @Override
     public Page<ProductoResponse> obtenerTodosPaginado(Pageable pageable) {
         return productoRepository.findAll(pageable).map(this::mapToResponse); // Mapea cada Producto a ProductoResponse
