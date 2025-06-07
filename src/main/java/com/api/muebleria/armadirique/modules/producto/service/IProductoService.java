@@ -6,9 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface IProductoService {
+    ProductoResponse createProduct(ProductoRequest productoRequest);//agregamos nuevo pra guardar img
     List<ProductoResponse> obtenerTodos();
     ProductoResponse obtenerPorId(Long id);
-    ProductoResponse crear(ProductoRequest request, MultipartFile imagenFile);
-    ProductoResponse actualizar(long id, ProductoRequest request, MultipartFile imagenFile);
+    //ProductoResponse crear(ProductoRequest request, MultipartFile imagenFile);
+    ProductoResponse updateProduct(Long id,ProductoRequest productoRequest);//otro netodo para actualizar con img
+    //ProductoResponse actualizar(long id, ProductoRequest request, MultipartFile imagenFile);
     void eliminar(Long id);
 }
