@@ -5,11 +5,17 @@ import com.api.muebleria.armadirique.modules.producto.dto.ProductoResponse;
 import com.api.muebleria.armadirique.modules.producto.service.ICategoriaService;
 import com.api.muebleria.armadirique.modules.producto.service.IProductoService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page; // <--- ADD THIS LINE
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable; // Ensure this is present
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault; // Ensure this is present
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +53,28 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.obtenerTodos());
     }
 
+    // Nuevo endpoint para obtener productos paginados
+    @GetMapping("/paginado")
+    public ResponseEntity<Page<ProductoResponse>> obtenerTodosPaginado(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "nombre,asc") String[] sort
+    ) {
+        // Validar tamaño máximo permitido
+        if (size > 100) {
+            size = 100; // Limitar a 100 resultados por página
+        }
+
+        // Separar campo y dirección
+        String sortField = sort[0];
+        Sort.Direction direction = sort.length > 1 && sort[1].equalsIgnoreCase("desc")
+                ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
+
+        Page<ProductoResponse> productosPage = productoService.obtenerTodosPaginado(pageable);
+        return ResponseEntity.ok(productosPage);
+    }
     /**
      * Obtiene un producto por su ID.
      *
