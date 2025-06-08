@@ -1,9 +1,10 @@
 package com.api.muebleria.armadirique.modules.producto.entity;
 
+
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.LinkedHashSet;
+
 import java.util.Set;
 
 @Entity
@@ -22,7 +23,7 @@ public class Categoria {
 
     private String descripcion;
 
-    @OneToMany(mappedBy = "categoria",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categoria",fetch = FetchType.LAZY)
 
     private Set<Producto> productos = new LinkedHashSet<>();
 }
