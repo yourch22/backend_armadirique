@@ -50,13 +50,23 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/auth/*",
-                                "/usuarios/",//recomienda register
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html"
+                                "/auth/*",      // Rutas para login/registro
+                                "/usuarios/",   // Rutas para usuarios (¿registro? asegúrate que no exponga datos sensibles)
+                                "/v3/api-docs/**", // Documentación OpenAPI/Swagger
+                                "/swagger-ui/**",  // UI de Swagger
+                                "/swagger-ui.html",// HTML de Swagger UI
+                                // ¡LA CLAVE! Permitir acceso a los recursos estáticos (imágenes, etc.)
+                                "/uploads/**" // <--- AÑADIDO ESTO
                         ).permitAll() /* se agrega correcto rutas con buenas practicas*/
-                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                        // Permitir acceso a todas las operaciones GET para /productos
+                        .requestMatchers(HttpMethod.GET, "/productos").permitAll() // <--- ¡AÑADIDO ESTO!
+                        // Si tienes paginación para /productos, también deberías permitirla
+                        .requestMatchers(HttpMethod.GET, "/productos/pagina/**").permitAll() // Por ejemplo, si tu paginación usa /productos/pagina/0
+                        // Si tienes el endpoint de categorías de productos en /productos/categorias
+                        .requestMatchers(HttpMethod.GET, "/productos/categorias").permitAll() // Para el mrtodo getTypes()
+                        // Permitir solicitudes OPTIONS para pre-vuelo de CORS (si es necesario y no está cubierto por cors.disable())
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Permite OPTIONS para cualquier ruta
+                        // Cualquier otra solicitud requiere autenticación
                         .anyRequest().authenticated()
                 );
 
@@ -73,39 +83,3 @@ public class SecurityConfig {
     }
 
 }
-/*
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final AuthenticationProvider authProvider;
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // ✅ React
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true); // ✅ permite enviar cookies/token
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll() // Login y registro públicos
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // 👈 permite Swagger
-                        .requestMatchers("/admin/**").hasAuthority("ADMIN") // Solo ADMIN
-                        .requestMatchers("/client/**").hasAuthority("CLIENT") // Solo CLIENT
-                        .anyRequest().authenticated() // Cualquier otra requiere autenticación
-                )
-                .authenticationProvider(authProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
-}
-*/

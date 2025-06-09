@@ -21,22 +21,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @Service
 public class ProductoServiceImpl implements IProductoService {
 
     private final ProductoRepository productoRepository;
     private final CategoriaRepository categoriaRepository;
     private final UsuarioRepository usuarioRepository;
-    //private final UsuarioProductRepository usuarioProductRepository;
-    @Value("${app.upload.base-dir}")
+    private final FileUploadUtil fileUploadUtil;
+    @Value("${upload.dir.base:uploads}")
     private String baseUploadDir;
 
-    private final String PRODUCT_SUBFOLDER = "products"; // Define subfolder for categories
+    public static final String PRODUCT_SUBFOLDER = "products"; // Define subfolder for categories
 
-    public ProductoServiceImpl(ProductoRepository productoRepository, UsuarioProductRepository usuarioProductRepository, CategoriaRepository categoriaRepository, UsuarioRepository usuarioRepository) {
+    public ProductoServiceImpl(ProductoRepository productoRepository, UsuarioProductRepository usuarioProductRepository,
+                               CategoriaRepository categoriaRepository, UsuarioRepository usuarioRepository, FileUploadUtil fileUploadUtil) {
         this.productoRepository = productoRepository;
         this.categoriaRepository = categoriaRepository;
-        this.usuarioRepository = usuarioRepository;
+        this.usuarioRepository = usuarioRepository;// Asigna al campo
+        this.fileUploadUtil = fileUploadUtil;
     }
 
     @Override
@@ -50,7 +53,9 @@ public class ProductoServiceImpl implements IProductoService {
         MultipartFile imagenFile = productoRequest.getImagenUrl(); // Ahora accedes a 'imagenFile'
         if (imagenFile != null && !imagenFile.isEmpty()) {
             try {
-                String fileName = FileUploadUtil.saveFile(baseUploadDir, PRODUCT_SUBFOLDER, imagenFile);
+                // Llama al método NO ESTÁTICO del bean inyectado:
+                String fileName = fileUploadUtil.saveFile(baseUploadDir, PRODUCT_SUBFOLDER, imagenFile);
+                //fileUploadUtil.saveFile(null, PRODUCT_SUBFOLDER, imagenFile);
                 producto.setImagenUrl(fileName);
             } catch (IOException e) {
                 throw new RuntimeException("Failed to store file: " + e.getMessage());
@@ -100,7 +105,7 @@ public class ProductoServiceImpl implements IProductoService {
                     if (existingProducto.getImagenUrl() != null) {
                         FileUploadUtil.deleteFile(baseUploadDir, existingProducto.getImagenUrl());
                     }
-                    String fileName = FileUploadUtil.saveFile(baseUploadDir,PRODUCT_SUBFOLDER, productoRequest.getImagenUrl());
+                    String fileName = fileUploadUtil.saveFile(baseUploadDir, PRODUCT_SUBFOLDER, productoRequest.getImagenUrl());
                     existingProducto.setImagenUrl(fileName);
                 } catch (IOException e) {
                     throw new RuntimeException("Failed to update file: " + e.getMessage());
