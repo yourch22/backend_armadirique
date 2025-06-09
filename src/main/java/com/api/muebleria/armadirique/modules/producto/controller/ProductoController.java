@@ -29,16 +29,13 @@ import java.util.Map;
 @CrossOrigin("*")//dependencia para permitir acceso al controlador
 public class ProductoController {
 
-
-
     private final IProductoService productoService;
     private final ICategoriaService categoriaService;
-    private final ListarProductoExcel listarProductoExcel;
 
-    public ProductoController(IProductoService productoService, ICategoriaService categoriaService, ListarProductoExcel listarProductoExcel) {
+    public ProductoController(IProductoService productoService, ICategoriaService categoriaService) {
         this.productoService = productoService;
         this.categoriaService = categoriaService;
-        this.listarProductoExcel = listarProductoExcel;
+
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // ¡IMPORTANTE! Indica que esperas multipart/form-data para que permita seleccionar imagenes
