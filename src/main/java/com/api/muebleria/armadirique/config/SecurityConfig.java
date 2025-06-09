@@ -60,6 +60,7 @@ public class SecurityConfig {
                         ).permitAll() /* se agrega correcto rutas con buenas practicas*/
                         // Permitir acceso a todas las operaciones GET para /productos
                         .requestMatchers(HttpMethod.GET, "/productos").permitAll() // <--- ¡AÑADIDO ESTO!
+
                         // Si tienes paginación para /productos, también deberías permitirla
                         .requestMatchers(HttpMethod.GET, "/productos/pagina/**").permitAll() // Por ejemplo, si tu paginación usa /productos/pagina/0
                         // Si tienes el endpoint de categorías de productos en /productos/categorias
@@ -67,7 +68,7 @@ public class SecurityConfig {
                         // Permitir solicitudes OPTIONS para pre-vuelo de CORS (si es necesario y no está cubierto por cors.disable())
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Permite OPTIONS para cualquier ruta
                         // Cualquier otra solicitud requiere autenticación
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

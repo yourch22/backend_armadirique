@@ -20,7 +20,7 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    //compueba existencia del token para utorizar la peticion
+    //compueba existencia del token para autorizar la peticion
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 

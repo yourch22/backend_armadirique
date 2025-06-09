@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
-@Component("/views/productos/listar.xlsx")
+@Component("/productos/listar.xlsx")
 public class ListarProductoExcel extends AbstractXlsxView {
 
     @Override
