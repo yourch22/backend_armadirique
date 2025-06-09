@@ -54,7 +54,8 @@ public class SecurityConfig {
                                 "/usuarios/",//recomienda register
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html"
+                                "/swagger-ui.html",
+                                "/productos/**"
                         ).permitAll() /* se agrega correcto rutas con buenas practicas*/
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyRequest().authenticated()
