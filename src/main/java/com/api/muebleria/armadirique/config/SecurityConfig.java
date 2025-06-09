@@ -50,11 +50,13 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/auth/*",
-                                "/usuarios/",//recomienda register
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
+                                "/auth/*",      // Rutas para login/registro
+                                "/usuarios/",   // Rutas para usuarios (¿registro? asegúrate que no exponga datos sensibles)
+                                "/v3/api-docs/**", // Documentación OpenAPI/Swagger
+                                "/swagger-ui/**",  // UI de Swagger
+                                "/swagger-ui.html",// HTML de Swagger UI
+                                // ¡LA CLAVE! Permitir acceso a los recursos estáticos (imágenes, etc.)
+                                "/uploads/**", // <--- AÑADIDO ESTO
                                 "/productos/**"
                         ).permitAll() /* se agrega correcto rutas con buenas practicas*/
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
