@@ -158,6 +158,12 @@ public class ProductoServiceImpl implements IProductoService {
         return productoRepository.findAll(pageable).map(this::mapToResponse); // Mapea cada Producto a ProductoResponse
     }
 
+    //para exportar excel
+    @Override
+    public List<Producto> obtenerProductosEntidad() {
+        return productoRepository.findAll();
+    }
+
     /**
      * Convierte una entidad Producto a un objeto de respuesta ProductoResponse,
      * extrayendo los datos relevantes incluyendo los datos asociados como categoría y usuario.

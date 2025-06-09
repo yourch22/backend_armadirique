@@ -2,9 +2,14 @@ package com.api.muebleria.armadirique.modules.producto.controller;
 import com.api.muebleria.armadirique.modules.producto.dto.CategoriaResponse;
 import com.api.muebleria.armadirique.modules.producto.dto.ProductoRequest;
 import com.api.muebleria.armadirique.modules.producto.dto.ProductoResponse;
+import com.api.muebleria.armadirique.modules.producto.entity.Producto;
 import com.api.muebleria.armadirique.modules.producto.service.ICategoriaService;
 import com.api.muebleria.armadirique.modules.producto.service.IProductoService;
+import com.api.muebleria.armadirique.modules.productoReport.ListarProductoExcel;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page; // <--- ADD THIS LINE
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable; // Ensure this is present
@@ -15,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +33,12 @@ public class ProductoController {
 
     private final IProductoService productoService;
     private final ICategoriaService categoriaService;
+    private final ListarProductoExcel listarProductoExcel;
 
-    public ProductoController(IProductoService productoService, ICategoriaService categoriaService) {
+    public ProductoController(IProductoService productoService, ICategoriaService categoriaService, ListarProductoExcel listarProductoExcel) {
         this.productoService = productoService;
         this.categoriaService = categoriaService;
+        this.listarProductoExcel = listarProductoExcel;
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // ¡IMPORTANTE! Indica que esperas multipart/form-data para que permita seleccionar imagenes
@@ -128,5 +136,16 @@ public class ProductoController {
     public ResponseEntity<List<CategoriaResponse>> getTypes(){
         List<CategoriaResponse> categoriaResponses = categoriaService.listarCategorias();
         return new ResponseEntity<>(categoriaResponses, HttpStatus.OK);
+    }
+    //reporte excel
+    @GetMapping("/exportar/excel")
+    public void exportarProductosExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=listado-productos.xlsx");
+
+        List<Producto> productos = productoService.obtenerProductosEntidad();
+
+        ListarProductoExcel exporter = new ListarProductoExcel(productos);
+        exporter.export(response);
     }
 }

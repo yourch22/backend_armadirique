@@ -1,57 +1,61 @@
 package com.api.muebleria.armadirique.modules.productoReport;
 
-import java.util.List;
-import java.util.Map;
-
 import com.api.muebleria.armadirique.modules.producto.entity.Producto;
-import jakarta.servlet.http.HttpServletRequest;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.IOException;
+import java.util.List;
+
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Service;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
+@Service
+public class ListarProductoExcel {
 
-@Component("/productos/listar.xlsx")
-public class ListarProductoExcel extends AbstractXlsxView {
+    private List<Producto> productos;
 
-    @Override
-    protected void buildExcelDocument(Map<String, Object> model, Workbook workbook,
-                                      HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setHeader("Content-Disposition", "attachment; filename=\"listado-productos.xlsx\"");
-        Sheet hoja = workbook.createSheet("Productos");
+    public ListarProductoExcel(List<Producto> productos) {
+        this.productos = productos;
+    }
 
-        Row filaTitulo = hoja.createRow(0);
-        Cell celda = filaTitulo.createCell(0);
-        celda.setCellValue("LISTADO DE STOCK DE PRODUCTOS");
+    public void export(HttpServletResponse response) throws IOException {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Productos");
 
-        Row filaData = hoja.createRow(2);
-        String[] columnas = {"ID","NOMBRES", "DESCRIPCION", "PRECIO", "STOCK",
-                "IMAGEN_URL", "ESTADO", "ID CATEGORIA", "ID USUARIO", "NOMBRE USUARIO" };
+        Row header = sheet.createRow(0);
+        String[] columnas = {"ID", "NOMBRE", "DESCRIPCIÓN", "PRECIO", "STOCK", "IMAGEN_URL", "ESTADO", "ID CATEGORIA", "ID USUARIO", "NOMBRE USUARIO"};
+
         for (int i = 0; i < columnas.length; i++) {
-            celda = filaData.createCell(i);
-            celda.setCellValue(columnas[i]);
+            Cell cell = header.createCell(i);
+            cell.setCellValue(columnas[i]);
         }
 
-        List<Producto> listaC = (List<Producto>) model.get("productos");
+        int fila = 1;
+        for (Producto p : productos) {
+            Row row = sheet.createRow(fila++);
 
-        int numFila=3;
-        for (Producto producto : listaC) {
-            filaData = hoja.createRow(numFila);
-
-            filaData.createCell(0).setCellValue(producto.getProductoId());
-            filaData.createCell(0).setCellValue(producto.getNombre());
-            filaData.createCell(0).setCellValue(producto.getDescripcion());
-            filaData.createCell(0).setCellValue(producto.getPrecio().toString());
-            filaData.createCell(0).setCellValue(producto.getStock());
-            filaData.createCell(0).setCellValue(producto.getImagenUrl());
-            filaData.createCell(0).setCellValue(producto.isEstado());
-            filaData.createCell(0).setCellValue(producto.getCategoria().getCategoriaId());
-            filaData.createCell(0).setCellValue(producto.getUsuario().getUsuarioId());
-
-            numFila ++;
+            row.createCell(0).setCellValue(p.getProductoId());
+            row.createCell(1).setCellValue(p.getNombre());
+            row.createCell(2).setCellValue(p.getDescripcion());
+            row.createCell(3).setCellValue(p.getPrecio().doubleValue());
+            row.createCell(4).setCellValue(p.getStock());
+            row.createCell(5).setCellValue(p.getImagenUrl());
+            row.createCell(6).setCellValue(p.isEstado());
+            row.createCell(7).setCellValue(p.getCategoria().getCategoriaId());
+            row.createCell(8).setCellValue(p.getUsuario().getUsuarioId());
+            row.createCell(9).setCellValue(p.getUsuario().getNombre()); // Asegúrate que exista getNombre()
         }
+
+        // Estilo opcional: auto-ajustar columnas
+        for (int i = 0; i < columnas.length; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        ServletOutputStream outputStream = response.getOutputStream();
+        workbook.write(outputStream);
+        workbook.close();
+        outputStream.close();
     }
 }
