@@ -1,4 +1,4 @@
-package com.api.muebleria.armadirique.modules.carrito.carritoItem;
+package com.api.muebleria.armadirique.modules.carrito.entity;
 // CarritoItem.java
 import jakarta.persistence.*;
 import com.api.muebleria.armadirique.modules.producto.entity.Producto;

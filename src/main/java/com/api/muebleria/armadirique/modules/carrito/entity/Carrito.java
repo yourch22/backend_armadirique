@@ -3,7 +3,7 @@ package com.api.muebleria.armadirique.modules.carrito.carritoItem;
 import jakarta.persistence.*;
 
 import com.api.muebleria.armadirique.auth.entity.Usuario;
-import com.api.muebleria.armadirique.modules.carrito.carritoItem.CarritoItem;
+import com.api.muebleria.armadirique.modules.carrito.entity.CarritoItem;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;

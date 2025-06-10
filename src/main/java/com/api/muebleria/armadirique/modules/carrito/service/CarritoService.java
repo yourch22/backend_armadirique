@@ -1,12 +1,14 @@
-package com.api.muebleria.armadirique.modules.carrito.carritoItem;
+package com.api.muebleria.armadirique.modules.carrito.service;
 
+import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
+import com.api.muebleria.armadirique.modules.carrito.entity.CarritoItem;
 import com.api.muebleria.armadirique.modules.producto.entity.Producto;
 import com.api.muebleria.armadirique.auth.entity.Usuario;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.api.muebleria.armadirique.modules.carrito.carritoItem.CarritoRepository;
-import com.api.muebleria.armadirique.modules.carrito.carritoItem.CarritoItemRepository;
+import com.api.muebleria.armadirique.modules.carrito.repository.CarritoRepository;
+import com.api.muebleria.armadirique.modules.carrito.repository.CarritoItemRepository;
 import com.api.muebleria.armadirique.modules.producto.Repository.ProductoRepository;
 import com.api.muebleria.armadirique.auth.repository.UsuarioRepository;
 import java.util.Optional;

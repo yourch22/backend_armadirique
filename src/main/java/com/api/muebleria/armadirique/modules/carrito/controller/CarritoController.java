@@ -1,17 +1,8 @@
-package com.api.muebleria.armadirique.modules.carrito.carritoItem;
+package com.api.muebleria.armadirique.modules.carrito.controller;
 
-import com.api.muebleria.armadirique.modules.producto.entity.Producto;
+import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
 import org.springframework.web.bind.annotation.*;
-import com.api.muebleria.armadirique.modules.producto.Repository.ProductoRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.api.muebleria.armadirique.modules.carrito.carritoItem.CarritoService;
-
-import org.springframework.http.ResponseEntity;
-
-
-import java.util.List;
+import com.api.muebleria.armadirique.modules.carrito.service.CarritoService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
