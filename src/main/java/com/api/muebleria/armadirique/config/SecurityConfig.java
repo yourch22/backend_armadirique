@@ -56,7 +56,9 @@ public class SecurityConfig {
                                 "/swagger-ui/**",  // UI de Swagger
                                 "/swagger-ui.html",// HTML de Swagger UI
                                 // ¡LA CLAVE! Permitir acceso a los recursos estáticos (imágenes, etc.)
-                                "/uploads/**" // <--- AÑADIDO ESTO
+                                "/uploads/**", // <--- AÑADIDO ESTO
+                                "/productos/**",
+                                "/carrito/**"
                         ).permitAll() /* se agrega correcto rutas con buenas practicas*/
                         // Permitir acceso a todas las operaciones GET para /productos
                         .requestMatchers(HttpMethod.GET, "/productos").permitAll() // <--- ¡AÑADIDO ESTO!
