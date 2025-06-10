@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
+
 
 import java.util.*;
 
@@ -50,6 +52,10 @@ public class Usuario implements UserDetails {
     private boolean estado = true;
 
     private String perfil;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Carrito carrito;
+
 
     //relacion de tabla de muchos a muchos
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "usuario")

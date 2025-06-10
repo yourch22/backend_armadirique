@@ -3,6 +3,7 @@ package com.api.muebleria.armadirique.modules.producto.entity;
 import com.api.muebleria.armadirique.auth.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 @Builder
@@ -31,6 +32,7 @@ public class Producto {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id") // recomendable
+    @JsonIgnore
     private Categoria categoria;
 
     @ManyToOne(fetch = FetchType.LAZY)

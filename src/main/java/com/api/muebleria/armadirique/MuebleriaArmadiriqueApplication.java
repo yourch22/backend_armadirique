@@ -21,10 +21,11 @@ import com.api.muebleria.armadirique.modules.producto.entity.Categoria;
 import com.api.muebleria.armadirique.modules.producto.Repository.CategoriaRepository;
 import com.api.muebleria.armadirique.modules.producto.Repository.ProductoRepository;
 import java.util.List;
+import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import com.api.muebleria.armadirique.modules.carrito.carritoItem.ItemCarrito;
+import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
 
 // Archivo principal de la aplicación
 @SpringBootApplication
@@ -61,7 +62,11 @@ public class MuebleriaArmadiriqueApplication implements CommandLineRunner {//imp
 			usuario.setDireccion("av.arequipa");
 			usuario.setEstado(true);
 			usuario.setCiudad("Lima");
-
+			//Carrito de usuario
+			Carrito carrito = new Carrito();
+			carrito.setUsuario(usuario);
+			carrito.setItems(new ArrayList<>());
+			usuario.setCarrito(carrito);
 
 			Rol rol = new Rol();
 			rol.setRolId(1L);
