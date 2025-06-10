@@ -48,7 +48,7 @@ public class ListarProductoExcel {
             row.createCell(9).setCellValue(p.getUsuario().getNombre()); // Asegúrate que exista getNombre()
         }
 
-        // Estilo opcional: auto-ajustar columnas
+        // Estilo opcional: auto-ajustar   columnas
         for (int i = 0; i < columnas.length; i++) {
             sheet.autoSizeColumn(i);
         }

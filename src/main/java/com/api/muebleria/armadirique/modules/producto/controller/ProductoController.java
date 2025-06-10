@@ -46,7 +46,7 @@ public class ProductoController {
     }
     /**
      * Obtiene todos los productos disponibles.
-     *
+     *Hace la retornacion de la lista de productos
      * @return lista de productos
      */
     @GetMapping
@@ -54,7 +54,7 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.obtenerTodos());
     }
 
-    // Nuevo endpoint para obtener productos paginados
+    // Nuevo endpoint para obtener productos paginados....
     @GetMapping("/paginado")
     public ResponseEntity<Page<ProductoResponse>> obtenerTodosPaginado(
             @RequestParam(defaultValue = "0") int page,
