@@ -2,8 +2,11 @@ package com.api.muebleria.armadirique.modules.producto.controller;
 import com.api.muebleria.armadirique.modules.producto.dto.CategoriaResponse;
 import com.api.muebleria.armadirique.modules.producto.dto.ProductoRequest;
 import com.api.muebleria.armadirique.modules.producto.dto.ProductoResponse;
+import com.api.muebleria.armadirique.modules.producto.entity.Producto;
 import com.api.muebleria.armadirique.modules.producto.service.ICategoriaService;
 import com.api.muebleria.armadirique.modules.producto.service.IProductoService;
+import com.api.muebleria.armadirique.modules.productoReport.ListarProductoExcel;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page; // <--- ADD THIS LINE
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +34,6 @@ public class ProductoController {
         this.productoService = productoService;
         this.categoriaService = categoriaService;
     }
-
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // ¡IMPORTANTE! Indica que esperas multipart/form-data para que permita seleccionar imagenes
     public ResponseEntity<ProductoResponse> createProduct(
             @ModelAttribute ProductoRequest request, BindingResult result) {
@@ -41,7 +44,6 @@ public class ProductoController {
         ProductoResponse response = productoService.createProduct(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
     /**
      * Obtiene todos los productos disponibles.
      *
@@ -63,14 +65,11 @@ public class ProductoController {
         if (size > 100) {
             size = 100; // Limitar a 100 resultados por página
         }
-
         // Separar campo y dirección
         String sortField = sort[0];
         Sort.Direction direction = sort.length > 1 && sort[1].equalsIgnoreCase("desc")
                 ? Sort.Direction.DESC : Sort.Direction.ASC;
-
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
-
         Page<ProductoResponse> productosPage = productoService.obtenerTodosPaginado(pageable);
         return ResponseEntity.ok(productosPage);
     }
@@ -126,5 +125,14 @@ public class ProductoController {
     public ResponseEntity<List<CategoriaResponse>> getTypes(){
         List<CategoriaResponse> categoriaResponses = categoriaService.listarCategorias();
         return new ResponseEntity<>(categoriaResponses, HttpStatus.OK);
+    }
+    //reporte excel
+    @GetMapping("/exportar/excel")
+    public void exportarProductosExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=listado-productos.xlsx");
+        List<Producto> productos = productoService.obtenerProductosEntidad();
+        ListarProductoExcel exporter = new ListarProductoExcel(productos);
+        exporter.export(response);
     }
 }
