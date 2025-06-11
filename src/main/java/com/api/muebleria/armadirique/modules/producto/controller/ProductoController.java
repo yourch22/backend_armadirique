@@ -23,6 +23,8 @@ import java.util.Map;
 @CrossOrigin("*")//dependencia para permitir acceso al controlador
 public class ProductoController {
 
+
+
     private final IProductoService productoService;
     private final ICategoriaService categoriaService;
 

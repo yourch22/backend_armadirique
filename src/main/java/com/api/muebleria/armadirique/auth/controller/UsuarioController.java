@@ -30,6 +30,8 @@ public class UsuarioController {
     private String baseUploadDir;
 
     private final String PERFIL_SUBFOLDER = "perfil"; // Define subfolder for categories
+    @Autowired
+    private FileUploadUtil fileUploadUtil;
 
     //metodo ara bguardar usuario rol
     @PostMapping("/")
@@ -67,7 +69,9 @@ public class UsuarioController {
         }
 
         // Nombre único para la imagen
-        String filename = FileUploadUtil.saveFile(baseUploadDir, PERFIL_SUBFOLDER, imagen);
+        //String filename = FileUploadUtil.saveFile(baseUploadDir, PERFIL_SUBFOLDER, imagen);
+        // Llama al método NO ESTÁTICO del bean inyectado:
+        String filename = fileUploadUtil.saveFile(baseUploadDir, PERFIL_SUBFOLDER, imagen);
 
         // Guardar ruta en base de datos
         usuario.setPerfil(filename.toString());

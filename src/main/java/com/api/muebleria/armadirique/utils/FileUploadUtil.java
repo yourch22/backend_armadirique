@@ -1,5 +1,6 @@
 package com.api.muebleria.armadirique.utils;
 
+import org.springframework.stereotype.Component; // <-- ¡Añade esta importación!
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -10,9 +11,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
+@Component // <-- ¡Añade esta anotación!
 public class FileUploadUtil {
 
-    public static String saveFile(String uploadDir,String subFolder, MultipartFile multipartFile) throws IOException {
+    // Tu método saveFile está perfecto como no estático para la inyección
+    public String saveFile(String uploadDir,String subFolder, MultipartFile multipartFile) throws IOException {
         Path uploadPath = Paths.get(uploadDir,subFolder);
 
         if (!Files.exists(uploadPath)) {
@@ -35,6 +38,9 @@ public class FileUploadUtil {
         }
     }
 
+    // Este método es estático y no será mockeado por @Mock fileUploadUtil
+    // Si necesitas testearlo o verificar llamadas, tendrías que usar PowerMock (desaconsejado)
+    // o refactorizarlo también a no estático si es parte de la lógica de negocio del bean.
     public static boolean deleteFile(String uploadDir, String fileName) throws IOException {
         if (fileName == null || fileName.isEmpty()) {
             return false;
@@ -43,4 +49,3 @@ public class FileUploadUtil {
         return Files.deleteIfExists(filePath);
     }
 }
-

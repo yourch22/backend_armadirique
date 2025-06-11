@@ -53,12 +53,12 @@ public class MuebleriaArmadiriqueApplication implements CommandLineRunner {//imp
 		try{
 		Usuario usuario = new Usuario();
 			usuario.setNombre("Jorge");
-			usuario.setApellidos("Flores");
-			usuario.setUsername("jorge");
+			usuario.setApellidos("Flores M");
+			usuario.setUsername("admin");
 			usuario.setPassword(bCryptPasswordEncoder.encode("12345"));
-			usuario.setEmail("jorge@gmail.com");
+			usuario.setEmail("admin@gmail.com");
 			usuario.setTelefono("988212020");
-			usuario.setPerfil("foto.png");
+			usuario.setPerfil("perfil/perfil_1_icon_user.png");
 			usuario.setDireccion("av.arequipa");
 			usuario.setEstado(true);
 			usuario.setCiudad("Lima");
@@ -71,17 +71,46 @@ public class MuebleriaArmadiriqueApplication implements CommandLineRunner {//imp
 			Rol rol = new Rol();
 			rol.setRolId(1L);
 			rol.setRolNombre("ADMIN");
-
 			Set<UsuarioRol> usuariosRoles = new HashSet<>();
 			UsuarioRol usuarioRol = new UsuarioRol();
 			usuarioRol.setRol(rol);
 			usuarioRol.setUsuario(usuario);
 			usuariosRoles.add(usuarioRol);
-
 			Usuario usuarioGuardado = usuarioService.guardarUsuario(usuario,usuariosRoles);
 			System.out.println(usuarioGuardado.getUsername());
 		}catch (UsuarioFountException exception){
 			exception.printStackTrace();
+		}
+		try {
+			// --- Nuevo Usuario CLIENTE ---
+			Usuario usuarioCliente = new Usuario();
+			usuarioCliente.setNombre("Mario"); // Nombre diferente
+			usuarioCliente.setApellidos("Gomez R");
+			usuarioCliente.setUsername("cliente"); // Username diferente
+			usuarioCliente.setPassword(bCryptPasswordEncoder.encode("12345")); // Contraseña diferente
+			usuarioCliente.setEmail("cliente@gmail.com"); // Email diferente
+			usuarioCliente.setTelefono("987654321");
+			usuarioCliente.setPerfil("perfil/perfil_2_icon_user.png"); // Perfil diferente (si tienes)
+			usuarioCliente.setDireccion("calle del sol 456");
+			usuarioCliente.setEstado(true);
+			usuarioCliente.setCiudad("Cusco");
+
+			Rol rolCliente = new Rol();
+			rolCliente.setRolId(2L); // <-- ¡IMPORTANTE! Asegúrate que este ID exista en tu tabla de Roles como "CLIENT"
+			rolCliente.setRolNombre("CLIENTE"); // El nombre del rol en tu base de datos
+
+			Set<UsuarioRol> usuariosRolesCliente = new HashSet<>();
+			UsuarioRol usuarioRolCliente = new UsuarioRol();
+			usuarioRolCliente.setRol(rolCliente);
+			usuarioRolCliente.setUsuario(usuarioCliente);
+			usuariosRolesCliente.add(usuarioRolCliente);
+
+			Usuario usuarioGuardadoCliente = usuarioService.guardarUsuario(usuarioCliente, usuariosRolesCliente);
+			System.out.println("Usuario CLIENTE guardado/existente: " + usuarioGuardadoCliente.getUsername());
+
+		} catch (UsuarioFountException exception){
+			System.out.println("Error: El usuario CLIENTE ya existe. " + exception.getMessage());
+			// exception.printStackTrace(); // Descomenta si necesitas el stack trace completo
 		}
 
 		//CREACION DE CATEGORIA 'MUEBLES' Y 10 PRODUCTOS
@@ -123,7 +152,7 @@ public class MuebleriaArmadiriqueApplication implements CommandLineRunner {//imp
 			categoriaBancos.setDescripcion("Categoría de bancos elegantes.");
 			categoriaBancos = categoriaRepository.save(categoriaBancos);
 		}
-				
+
 		//############################# Crear productos ####################################
 		List<Producto> productosGenerados = List.of(
 			//new Producto(idProducto,Nombre,Descripcion,Precio,Stock,imagenUrl,Estado,Categoria,Usuario)
@@ -148,7 +177,4 @@ public class MuebleriaArmadiriqueApplication implements CommandLineRunner {//imp
 		System.out.println("Productos de prueba creados.");
 
 	}
-	//############################# carrito ####################################
-
-
 }
