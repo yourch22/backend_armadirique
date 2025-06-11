@@ -94,6 +94,11 @@ public class MuebleriaArmadiriqueApplication implements CommandLineRunner {//imp
 			usuarioCliente.setDireccion("calle del sol 456");
 			usuarioCliente.setEstado(true);
 			usuarioCliente.setCiudad("Cusco");
+			//Carrito de usuario
+			Carrito carrito2 = new Carrito();
+			carrito2.setUsuario(usuarioCliente);
+			carrito2.setItems(new ArrayList<>());
+			usuarioCliente.setCarrito(carrito2);
 
 			Rol rolCliente = new Rol();
 			rolCliente.setRolId(2L); // <-- ¡IMPORTANTE! Asegúrate que este ID exista en tu tabla de Roles como "CLIENT"
@@ -156,16 +161,16 @@ public class MuebleriaArmadiriqueApplication implements CommandLineRunner {//imp
 		//############################# Crear productos ####################################
 		List<Producto> productosGenerados = List.of(
 			//new Producto(idProducto,Nombre,Descripcion,Precio,Stock,imagenUrl,Estado,Categoria,Usuario)
-			new Producto(null, "Silla Terciopelo", "Silla de terciopelo suave, perfecta para comedor moderno.", new BigDecimal("800.00"), 10, "SillaTerciopelo", true, categoriaSillas, null),
-			new Producto(null, "Silla Moderna", "Silla tapizada en tela, ideal para salas con estilo.", new BigDecimal("600.00"), 10, "SillaModerna", true, categoriaSillas, null),
-			new Producto(null, "Silla Recolchada", "Silla elegante de acabado recolchado, ideal para escritorios y tocadores.", new BigDecimal("1000.00"), 10, "SillaRecolchada", true, categoriaSillas, null),
-			new Producto(null, "Sofá Puff Marron", "Sofá Puff, cómodo y acogedor para cualquier sala.", new BigDecimal("1000.00"), 10, "SofaPuff", true, categoriaMuebles, null),
-			new Producto(null, "Sillón Plomo", "Sillón individual en tono plomo, diseño moderno y respaldo ergonómico.", new BigDecimal("300.00"), 10, "SillonPlomo", true, categoriaMuebles, null),
-			new Producto(null, "Banco Amoblado", "Banco acolchado y forrado con materiales de alta calidad, ideal para oficina.", new BigDecimal("200.00"), 10, "BancoAmoblado", true, categoriaBancos, null),
-			new Producto(null, "Sofá Clasico", "Sofá antiguo, combina con cualquier ambiente.", new BigDecimal("500.00"), 10, "SofaClasico", true, categoriaMuebles, null),
-			new Producto(null, "Silla Giratoria", "Silla de oficina ergonómica con asiento giratorio.", new BigDecimal("200.00"), 10, "SillaGiratoria", true, categoriaMuebles, null),
-			new Producto(null, "Sofá Refinado", "Sofá con cojines suaves y estructura de madera.", new BigDecimal("600.00"), 10, "SofaRefinado", true, categoriaMuebles, null),
-			new Producto(null, "Banco Madera", "Banco rústico de madera maciza, ideal para exteriores o cocinas campestres.", new BigDecimal("100.00"), 10, "BancoMadera", true, categoriaBancos, null)
+			new Producto(null, "Silla Terciopelo", "Silla de terciopelo suave, perfecta para comedor moderno.", new BigDecimal("800.00"), 10, "products/SillaTerciopelo.jpg", true, categoriaSillas, null),
+			new Producto(null, "Silla Moderna", "Silla tapizada en tela, ideal para salas con estilo.", new BigDecimal("600.00"), 10, "products/SillaModerna.jpg", true, categoriaSillas, null),
+			new Producto(null, "Silla Recolchada", "Silla elegante de acabado recolchado, ideal para escritorios y tocadores.", new BigDecimal("1000.00"), 10, "products/SillaRecolchada.jpg", true, categoriaSillas, null),
+			new Producto(null, "Sofá Puff Marron", "Sofá Puff, cómodo y acogedor para cualquier sala.", new BigDecimal("1000.00"), 10, "products/SofaPuff.jpg", true, categoriaMuebles, null),
+			new Producto(null, "Sillón Plomo", "Sillón individual en tono plomo, diseño moderno y respaldo ergonómico.", new BigDecimal("300.00"), 10, "products/SillonPlomo.jpg", true, categoriaMuebles, null),
+			new Producto(null, "Banco Amoblado", "Banco acolchado y forrado con materiales de alta calidad, ideal para oficina.", new BigDecimal("200.00"), 10, "products/BancoAmoblado.jpg", true, categoriaBancos, null),
+			new Producto(null, "Sofá Clasico", "Sofá antiguo, combina con cualquier ambiente.", new BigDecimal("500.00"), 10, "products/SofaClasico.jpg", true, categoriaMuebles, null),
+			new Producto(null, "Silla Giratoria", "Silla de oficina ergonómica con asiento giratorio.", new BigDecimal("200.00"), 10, "products/SillaGiratoria.jpg", true, categoriaMuebles, null),
+			new Producto(null, "Sofá Refinado", "Sofá con cojines suaves y estructura de madera.", new BigDecimal("600.00"), 10, "products/SofaRefinado.jpg", true, categoriaMuebles, null),
+			new Producto(null, "Banco Madera", "Banco rústico de madera maciza, ideal para exteriores o cocinas campestres.", new BigDecimal("100.00"), 10, "products/BancoMadera.jpg", true, categoriaBancos, null)
 		);
 		// guardar productos
 		for (Producto producto : productosGenerados) {
