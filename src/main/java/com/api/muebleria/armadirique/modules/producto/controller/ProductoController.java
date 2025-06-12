@@ -17,6 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import static com.google.common.base.Preconditions.*;
+import com.google.common.collect.*;
+import com.google.common.base.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -121,11 +124,26 @@ public class ProductoController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * ✅ 2. Filtrado o procesamiento de listas con FluentIterable o Collections2
+     * En el endpoint /categorias, podrías aplicar filtros fácilmente con Guava:
+     * @return
+     */
     @GetMapping("/categorias")
     public ResponseEntity<List<CategoriaResponse>> getTypes(){
-        List<CategoriaResponse> categoriaResponses = categoriaService.listarCategorias();
-        return new ResponseEntity<>(categoriaResponses, HttpStatus.OK);
+        List<CategoriaResponse> categoriaResponses = FluentIterable
+                .from(categoriaService.listarCategorias())
+                .filter(new Predicate<CategoriaResponse>() {
+                    public boolean apply(CategoriaResponse c) {
+                        return c.getTitulo() != null && !c.getTitulo().isEmpty(); // solo categorías válidas
+                    }
+                })
+                .toList();
+        return ResponseEntity.ok(categoriaResponses);
     }
+
+
+
     //reporte excel
     @GetMapping("/exportar/excel")
     public void exportarProductosExcel(HttpServletResponse response) throws IOException {
