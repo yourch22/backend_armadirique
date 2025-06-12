@@ -21,19 +21,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @Service
 public class ProductoServiceImpl implements IProductoService {
-
     private final ProductoRepository productoRepository;
     private final CategoriaRepository categoriaRepository;
     private final UsuarioRepository usuarioRepository;
     private final FileUploadUtil fileUploadUtil;
     @Value("${upload.dir.base:uploads}")
     private String baseUploadDir;
-
     public static final String PRODUCT_SUBFOLDER = "products"; // Define subfolder for categories
-
     public ProductoServiceImpl(ProductoRepository productoRepository, UsuarioProductRepository usuarioProductRepository,
                                CategoriaRepository categoriaRepository, UsuarioRepository usuarioRepository, FileUploadUtil fileUploadUtil) {
         this.productoRepository = productoRepository;
@@ -41,7 +37,6 @@ public class ProductoServiceImpl implements IProductoService {
         this.usuarioRepository = usuarioRepository;// Asigna al campo
         this.fileUploadUtil = fileUploadUtil;
     }
-
     @Override
     @Transactional
     public ProductoResponse createProduct(ProductoRequest productoRequest) {
@@ -74,7 +69,6 @@ public class ProductoServiceImpl implements IProductoService {
         return mapToResponse(savedProducto);
 
     }
-
     @Override
     public List<ProductoResponse> obtenerTodos() {
         return productoRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
@@ -90,7 +84,6 @@ public class ProductoServiceImpl implements IProductoService {
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
         return mapToResponse(producto);
     }
-
     @Override
     @Transactional
     public ProductoResponse updateProduct(Long id, ProductoRequest productoRequest) {
