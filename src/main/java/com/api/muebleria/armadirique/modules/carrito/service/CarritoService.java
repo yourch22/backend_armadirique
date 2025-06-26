@@ -1,6 +1,7 @@
 package com.api.muebleria.armadirique.modules.carrito.service;
 
-import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
+//import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
+import com.api.muebleria.armadirique.modules.carrito.entity.Carrito;
 import com.api.muebleria.armadirique.modules.carrito.entity.CarritoItem;
 import com.api.muebleria.armadirique.modules.producto.entity.Producto;
 import com.api.muebleria.armadirique.auth.entity.Usuario;

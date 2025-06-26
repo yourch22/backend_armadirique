@@ -4,6 +4,7 @@ import com.api.muebleria.armadirique.auth.entity.Rol;
 import com.api.muebleria.armadirique.auth.entity.Usuario;
 import com.api.muebleria.armadirique.auth.entity.UsuarioRol;
 import com.api.muebleria.armadirique.auth.service.UsuarioService;
+import com.api.muebleria.armadirique.modules.carrito.entity.Carrito;
 import com.api.muebleria.armadirique.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -47,8 +49,15 @@ public class UsuarioController {
         usuarioRol.setUsuario(usuario);
         usuarioRol.setRol(rol);
 
-       // usuarioRoles.add(usuarioRol);
         usuarioroles.add(usuarioRol);
+
+        // Crear carrito vacío y asignarlo al usuario
+        Carrito carrito = new Carrito();
+        carrito.setUsuario(usuario);
+        carrito.setItems(new ArrayList<>()); // opcional si items es lazy
+
+        usuario.setCarrito(carrito);
+
         return usuarioService.guardarUsuario(usuario, usuarioroles);
     }
 

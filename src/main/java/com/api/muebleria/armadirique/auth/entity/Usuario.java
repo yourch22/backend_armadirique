@@ -2,6 +2,7 @@ package com.api.muebleria.armadirique.auth.entity;
 
 import com.api.muebleria.armadirique.modules.producto.entity.Producto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
+import com.api.muebleria.armadirique.modules.carrito.entity.Carrito;
+
 
 
 import java.util.*;
@@ -43,6 +45,15 @@ public class Usuario implements UserDetails {
     @Column(length = 50)
     private String ciudad;
 
+    @Column(length = 50)
+    private String provincia;
+
+    @Column(length = 50)
+    private String distrito;
+
+    @Column(length = 50)
+    private String codigopostal;
+
     @Column(length = 20)
     private String telefono;
 
@@ -54,18 +65,20 @@ public class Usuario implements UserDetails {
     private String perfil;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @Schema(hidden = true) // <--- ESTA LÍNEA
     private Carrito carrito;
 
 
     //relacion de tabla de muchos a muchos
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "usuario")
     @JsonIgnore
+    @Schema(hidden = true)
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
+    @Schema(hidden = true)
     private Set<Producto> productos = new LinkedHashSet<>();
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

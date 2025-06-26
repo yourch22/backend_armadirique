@@ -6,6 +6,8 @@ import com.api.muebleria.armadirique.auth.repository.RolRepository;
 import com.api.muebleria.armadirique.auth.repository.UsuarioRepository;
 import com.api.muebleria.armadirique.auth.service.UsuarioService;
 import com.api.muebleria.armadirique.excepcions.UsuarioFountException;
+import com.api.muebleria.armadirique.modules.carrito.entity.Carrito;
+import com.api.muebleria.armadirique.modules.carrito.repository.CarritoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private RolRepository rolRepository;
+    @Autowired
+    private CarritoRepository carritoRepository;
 
     @Override
     public Usuario obtenerUsuarioPorId(Long id) throws Exception {
@@ -49,9 +53,16 @@ public class UsuarioServiceImpl implements UsuarioService {
             }
             //obtenemso roles y los asirgnamos a usuarios
             usuario.getUsuarioRoles().addAll(usuarioRoles);
+
+            // Crear carrito vacío y asociarlo
+            Carrito carrito = new Carrito();
+            carrito.setUsuario(usuario); // Relación bidireccional
+            usuario.setCarrito(carrito);
             usuarioLocal = usuarioRepository.save(usuario);
+            carritoRepository.save(carrito); // Importante: guardar el carrito luego de que el usuario tenga ID
+
+            return usuarioLocal;
         }
-        return usuarioLocal;
     }
 
     @Override

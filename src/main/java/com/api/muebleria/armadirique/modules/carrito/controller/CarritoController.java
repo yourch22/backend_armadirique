@@ -1,8 +1,9 @@
 package com.api.muebleria.armadirique.modules.carrito.controller;
 
-import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
+//import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
 import org.springframework.web.bind.annotation.*;
 import com.api.muebleria.armadirique.modules.carrito.service.CarritoService;
+import com.api.muebleria.armadirique.modules.carrito.entity.Carrito;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController

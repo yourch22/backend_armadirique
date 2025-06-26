@@ -1,8 +1,10 @@
 package com.api.muebleria.armadirique.modules.carrito.entity;
 // CarritoItem.java
+import com.api.muebleria.armadirique.auth.entity.Usuario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import com.api.muebleria.armadirique.modules.producto.entity.Producto;
-import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
+//import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -18,6 +20,12 @@ public class CarritoItem {
     @ManyToOne
     @JsonIgnore
     private Carrito carrito;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
 
     // Getters y setters
     public Long getId() { return id; }

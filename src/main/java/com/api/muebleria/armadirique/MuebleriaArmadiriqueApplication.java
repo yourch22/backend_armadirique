@@ -5,6 +5,7 @@ import com.api.muebleria.armadirique.auth.entity.Usuario;
 import com.api.muebleria.armadirique.auth.entity.UsuarioRol;
 import com.api.muebleria.armadirique.auth.service.UsuarioService;
 import com.api.muebleria.armadirique.excepcions.UsuarioFountException;
+import com.api.muebleria.armadirique.modules.carrito.entity.Carrito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
+//import com.api.muebleria.armadirique.modules.carrito.carritoItem.Carrito;
 
 // Archivo principal de la aplicación
 @SpringBootApplication
@@ -63,11 +64,11 @@ public class MuebleriaArmadiriqueApplication implements CommandLineRunner {//imp
 			usuario.setEstado(true);
 			usuario.setCiudad("Lima");
 			//Carrito de usuario
-			Carrito carrito = new Carrito();
+			/*Carrito carrito = new Carrito();
 			carrito.setUsuario(usuario);
 			carrito.setItems(new ArrayList<>());
 			usuario.setCarrito(carrito);
-
+*/
 			Rol rol = new Rol();
 			rol.setRolId(1L);
 			rol.setRolNombre("ADMIN");
@@ -95,10 +96,10 @@ public class MuebleriaArmadiriqueApplication implements CommandLineRunner {//imp
 			usuarioCliente.setEstado(true);
 			usuarioCliente.setCiudad("Cusco");
 			//Carrito de usuario
-			Carrito carrito2 = new Carrito();
+			/*Carrito carrito2 = new Carrito();
 			carrito2.setUsuario(usuarioCliente);
 			carrito2.setItems(new ArrayList<>());
-			usuarioCliente.setCarrito(carrito2);
+			usuarioCliente.setCarrito(carrito2);*/
 
 			Rol rolCliente = new Rol();
 			rolCliente.setRolId(2L); // <-- ¡IMPORTANTE! Asegúrate que este ID exista en tu tabla de Roles como "CLIENT"
