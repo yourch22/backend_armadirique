@@ -89,7 +89,7 @@ public class MuebleriaArmadiriqueApplication implements CommandLineRunner {//imp
 			usuarioCliente.setApellidos("Gomez R");
 			usuarioCliente.setUsername("cliente"); // Username diferente
 			usuarioCliente.setPassword(bCryptPasswordEncoder.encode("12345")); // Contraseña diferente
-			usuarioCliente.setEmail("cliente@gmail.com"); // Email diferente
+			usuarioCliente.setEmail("jotafm645@gmail.com"); // Email diferente
 			usuarioCliente.setTelefono("987654321");
 			usuarioCliente.setPerfil("perfil/perfil_2_icon_user.png"); // Perfil diferente (si tienes)
 			usuarioCliente.setDireccion("calle del sol 456");

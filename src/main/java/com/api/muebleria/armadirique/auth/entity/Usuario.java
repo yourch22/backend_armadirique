@@ -66,6 +66,7 @@ public class Usuario implements UserDetails {
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     @Schema(hidden = true) // <--- ESTA LÍNEA
+    @JsonIgnore
     private Carrito carrito;
 
 
