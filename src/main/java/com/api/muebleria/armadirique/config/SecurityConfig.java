@@ -70,6 +70,7 @@ public class SecurityConfig {
                         // Permitir solicitudes OPTIONS para pre-vuelo de CORS (si es necesario y no está cubierto por cors.disable())
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Permite OPTIONS para cualquier ruta
                         // Cualquier otra solicitud requiere autenticación
+                        .requestMatchers(HttpMethod.GET, "/usuarios").permitAll() 
                         .anyRequest().permitAll()
                 );
 

@@ -35,6 +35,8 @@ public class UsuarioController {
     @Autowired
     private FileUploadUtil fileUploadUtil;
 
+
+
     //metodo ara bguardar usuario rol
     @PostMapping("/")
     public Usuario GuardarUsuario(@RequestBody Usuario usuario) throws Exception {
