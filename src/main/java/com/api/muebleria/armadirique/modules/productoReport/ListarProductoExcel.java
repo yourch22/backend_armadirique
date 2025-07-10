@@ -25,7 +25,7 @@ public class ListarProductoExcel {
         Sheet sheet = workbook.createSheet("Productos");
 
         Row header = sheet.createRow(0);
-        String[] columnas = {"ID", "NOMBRE", "DESCRIPCIÓN", "PRECIO", "STOCK", "IMAGEN_URL", "ESTADO", "ID CATEGORIA", "ID USUARIO", "NOMBRE USUARIO"};
+        String[] columnas = {"ID", "NOMBRE", "DESCRIPCIÓN", "PRECIO", "STOCK", "IMAGEN_URL", "ESTADO"};
 
         for (int i = 0; i < columnas.length; i++) {
             Cell cell = header.createCell(i);
@@ -42,11 +42,11 @@ public class ListarProductoExcel {
             row.createCell(3).setCellValue(p.getPrecio().doubleValue());
             row.createCell(4).setCellValue(p.getStock());
             row.createCell(5).setCellValue(p.getImagenUrl());
-            row.createCell(6).setCellValue(p.isEstado());
-            row.createCell(7).setCellValue(p.getCategoria().getCategoriaId());
-            row.createCell(8).setCellValue(p.getUsuario().getUsuarioId());
-            row.createCell(9).setCellValue(p.getUsuario().getNombre()); // Asegúrate que exista getNombre()
+            row.createCell(6).setCellValue(p.isEstado() ? 1 : 0);
+
+
         }
+
 
         // Estilo opcional: auto-ajustar columnas
         for (int i = 0; i < columnas.length; i++) {
