@@ -94,7 +94,7 @@ public class ProductoController {
      * @param request datos actualizados del producto
      * @return producto actualizado
      */
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> updateProduct(
             @PathVariable Long id,
             @Valid @ModelAttribute ProductoRequest request,

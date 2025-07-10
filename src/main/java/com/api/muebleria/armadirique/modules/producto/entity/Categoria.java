@@ -26,4 +26,36 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria",fetch = FetchType.LAZY)
 
     private Set<Producto> productos = new LinkedHashSet<>();
+
+    public Long getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Set<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Set<Producto> productos) {
+        this.productos = productos;
+    }
 }

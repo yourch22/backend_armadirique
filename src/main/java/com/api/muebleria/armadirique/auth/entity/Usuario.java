@@ -111,4 +111,143 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(String distrito) {
+        this.distrito = distrito;
+    }
+
+    public String getCodigopostal() {
+        return codigopostal;
+    }
+
+    public void setCodigopostal(String codigopostal) {
+        this.codigopostal = codigopostal;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
+    }
+
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
+
+    public Set<UsuarioRol> getUsuarioRoles() {
+        return usuarioRoles;
+    }
+
+    public void setUsuarioRoles(Set<UsuarioRol> usuarioRoles) {
+        this.usuarioRoles = usuarioRoles;
+    }
+
+    public Set<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Set<Producto> productos) {
+        this.productos = productos;
+    }
 }
