@@ -22,4 +22,6 @@ public class ProductoResponse {
     private String nombreCategoria;
     private Long idUsuario;
     private String nombreUsuario;
+
+
 }

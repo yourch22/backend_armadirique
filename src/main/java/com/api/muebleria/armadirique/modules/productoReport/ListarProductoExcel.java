@@ -44,8 +44,15 @@ public class ListarProductoExcel {
             row.createCell(5).setCellValue(p.getImagenUrl());
             row.createCell(6).setCellValue(p.isEstado());
             row.createCell(7).setCellValue(p.getCategoria().getCategoriaId());
-            row.createCell(8).setCellValue(p.getUsuario().getUsuarioId());
-            row.createCell(9).setCellValue(p.getUsuario().getNombre()); // Asegúrate que exista getNombre()
+            // row.createCell(8).setCellValue(p.getUsuario().getUsuarioId());
+            // row.createCell(9).setCellValue(p.getUsuario().getNombre()); // Asegúrate que exista getNombre()
+            if (p.getUsuario() != null) {
+                row.createCell(8).setCellValue(p.getUsuario().getUsuarioId());
+                row.createCell(9).setCellValue(p.getUsuario().getNombre());
+            } else {
+                row.createCell(8).setCellValue("N/A");
+                row.createCell(9).setCellValue("N/A");
+            }
         }
 
         // Estilo opcional: auto-ajustar columnas
